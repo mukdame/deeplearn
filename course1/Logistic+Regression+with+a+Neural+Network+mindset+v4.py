@@ -23,7 +23,7 @@
 # - [matplotlib](http://matplotlib.org) is a famous library to plot graphs in Python.
 # - [PIL](http://www.pythonware.com/products/pil/) and [scipy](https://www.scipy.org/) are used here to test your model with your own picture at the end.
 
-# In[ ]:
+# In[4]:
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +47,7 @@ get_ipython().magic('matplotlib inline')
 # 
 # Let's get more familiar with the dataset. Load the data by running the following code.
 
-# In[ ]:
+# In[5]:
 
 # Loading the data (cat/non-cat)
 train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
@@ -57,7 +57,7 @@ train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_datas
 # 
 # Each line of your train_set_x_orig and test_set_x_orig is an array representing an image. You can visualize an example by running the following code. Feel free also to change the `index` value and re-run to see other images. 
 
-# In[ ]:
+# In[6]:
 
 # Example of a picture
 index = 25
@@ -73,7 +73,7 @@ print ("y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(t
 #     - num_px (= height = width of a training image)
 # Remember that `train_set_x_orig` is a numpy-array of shape (m_train, num_px, num_px, 3). For instance, you can access `m_train` by writing `train_set_x_orig.shape[0]`.
 
-# In[ ]:
+# In[7]:
 
 ### START CODE HERE ### (≈ 3 lines of code)
 m_train = train_set_x_orig.shape[0] 
@@ -120,7 +120,7 @@ print ("test_set_y shape: " + str(test_set_y.shape))
 # X_flatten = X.reshape(X.shape[0], -1).T      # X.T is the transpose of X
 # ```
 
-# In[ ]:
+# In[8]:
 
 # Reshape the training and test examples
 
@@ -169,7 +169,7 @@ print ("sanity check after reshaping: " + str(train_set_x_flatten[0:5,0]))
 # 
 # Let's standardize our dataset.
 
-# In[ ]:
+# In[9]:
 
 train_set_x = train_set_x_flatten/255.
 test_set_x = test_set_x_flatten/255.
@@ -224,7 +224,7 @@ test_set_x = test_set_x_flatten/255.
 # 
 # **Exercise**: Using your code from "Python Basics", implement `sigmoid()`. As you've seen in the figure above, you need to compute $sigmoid( w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}$ to make predictions. Use np.exp().
 
-# In[ ]:
+# In[10]:
 
 # GRADED FUNCTION: sigmoid
 
@@ -246,7 +246,7 @@ def sigmoid(z):
     return s
 
 
-# In[ ]:
+# In[11]:
 
 print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 
@@ -264,7 +264,7 @@ print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
 # 
 # **Exercise:** Implement parameter initialization in the cell below. You have to initialize w as a vector of zeros. If you don't know what numpy function to use, look up np.zeros() in the Numpy library's documentation.
 
-# In[ ]:
+# In[12]:
 
 # GRADED FUNCTION: initialize_with_zeros
 
@@ -282,7 +282,7 @@ def initialize_with_zeros(dim):
     
     ### START CODE HERE ### (≈ 1 line of code)
     w = np.zeros((dim, 1))
-    b = 0
+    b = 0.0
     ### END CODE HERE ###
 
     assert(w.shape == (dim, 1))
@@ -291,7 +291,7 @@ def initialize_with_zeros(dim):
     return w, b
 
 
-# In[ ]:
+# In[13]:
 
 dim = 2
 w, b = initialize_with_zeros(dim)
@@ -334,7 +334,7 @@ print ("b = " + str(b))
 # $$ \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T\tag{7}$$
 # $$ \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)})\tag{8}$$
 
-# In[ ]:
+# In[14]:
 
 # GRADED FUNCTION: propagate
 
@@ -383,7 +383,7 @@ def propagate(w, b, X, Y):
     return grads, cost
 
 
-# In[ ]:
+# In[15]:
 
 w, b, X, Y = np.array([[1.],[2.]]), 2., np.array([[1.,2.,-1.],[3.,4.,-3.2]]), np.array([[1,0,1]])
 grads, cost = propagate(w, b, X, Y)
@@ -418,7 +418,7 @@ print ("cost = " + str(cost))
 # 
 # **Exercise:** Write down the optimization function. The goal is to learn $w$ and $b$ by minimizing the cost function $J$. For a parameter $\theta$, the update rule is $ \theta = \theta - \alpha \text{ } d\theta$, where $\alpha$ is the learning rate.
 
-# In[ ]:
+# In[16]:
 
 # GRADED FUNCTION: optimize
 
@@ -483,7 +483,7 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
     return params, grads, costs
 
 
-# In[ ]:
+# In[17]:
 
 params, grads, costs = optimize(w, b, X, Y, num_iterations= 100, learning_rate = 0.009, print_cost = False)
 
@@ -524,7 +524,7 @@ print ("db = " + str(grads["db"]))
 # 
 # 2. Convert the entries of a into 0 (if activation <= 0.5) or 1 (if activation > 0.5), stores the predictions in a vector `Y_prediction`. If you wish, you can use an `if`/`else` statement in a `for` loop (though there is also a way to vectorize this). 
 
-# In[ ]:
+# In[18]:
 
 # GRADED FUNCTION: predict
 
@@ -562,7 +562,7 @@ def predict(w, b, X):
     return Y_prediction
 
 
-# In[ ]:
+# In[19]:
 
 w = np.array([[0.1124579],[0.23106775]])
 b = -0.3
@@ -603,7 +603,7 @@ print ("predictions = " + str(predict(w, b, X)))
 #     - Y_prediction_train for your predictions on the train set
 #     - w, costs, grads for the outputs of optimize()
 
-# In[ ]:
+# In[23]:
 
 # GRADED FUNCTION: model
 
@@ -626,7 +626,8 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     
     ### START CODE HERE ###
     # initialize parameters with zeros (≈ 1 line of code)
-    w, b = initialize_with_zeros(X_train.shape[0])
+    w, b = np.zeros((X_train.shape[0],1)), 0.0
+    # w, b = initialize_with_zeros(X_train.shape[0])
 
     # Gradient descent (≈ 1 line of code)
     parameters, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
@@ -659,7 +660,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
 
 # Run the following cell to train your model.
 
-# In[ ]:
+# In[24]:
 
 d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 2000, learning_rate = 0.005, print_cost = True)
 
